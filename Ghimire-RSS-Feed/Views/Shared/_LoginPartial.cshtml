@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <div class="col-12 d-flex justify-content-end align-items-center">
+
+        <div class="col-12 d-flex justify-content-end align-items-center">
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="col-12 d-flex justify-content-end align-items-center">
+
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="btn btn-sm btn-outline-secondary"> @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" }) </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-sm btn-outline-secondary" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+
+            }
+
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-12 d-flex justify-content-end align-items-center">
+
+        <div class="col-12 d-flex justify-content-end align-items-center">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="btn btn-sm btn-outline-secondary" href="@Url.Action("Login", "Account")" style="padding-right:10px;">Login</a>
+                </li>
+                <li></li>
+                <li class="nav-item">
+                    <a class="btn btn-sm btn-outline-secondary" href="@Url.Action("Register", "Account")">Sign up</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+}
+

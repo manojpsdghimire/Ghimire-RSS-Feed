@@ -1,0 +1,219 @@
+﻿@model IEnumerable<Ghimire_RSS_Feed.Models.RSSFeeds>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Blog Template for Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/blog/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <link href="blog.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <form>
+            @using (Html.BeginForm("Index", "Home",FormMethod.Post))
+            {
+                <br />
+                <div class="container-fluid" style="padding-left: 15px;">
+                    <div class="row">
+                        <div class="col " style="align-content:center;">
+                        </div>
+                        <div class="col " style="align-content:center;">
+                        </div>
+                        <div class="col " style="align-content:center;">
+                            Sort Articles: @Html.DropDownList("searchString", new SelectList(new[] { "Date", "Title", "Description" }), "", htmlAttributes: new { @class = "form-control", required = "required", onchange = "this.form.submit()" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-scroller py-1 mb-2">
+                    <nav class="nav d-flex justify-content-between">
+                        @Html.ActionLink("All", "Index", new { sortOrder = ViewBag.SortingAll }, new { @class = "p-2 text-muted" })
+                        @Html.ActionLink("Technology", "Index", new { sortOrder = ViewBag.SortingTech }, new { @class = "p-2 text-muted" })
+                        @Html.ActionLink("Design", "Index", new { sortOrder = ViewBag.SortingDesign }, new { @class = "p-2 text-muted" })
+                        @Html.ActionLink("Culture", "Index", new { sortOrder = ViewBag.SortingCulture }, new { @class = "p-2 text-muted" })
+                        @Html.ActionLink("Business", "Index", new { sortOrder = ViewBag.SortingBusiness }, new { @class = "p-2 text-muted" })
+                        @Html.ActionLink("Politics", "Index", new { sortOrder = ViewBag.SortingPolitice }, new { @class = "p-2 text-muted" })
+                        @Html.ActionLink("Opinion", "Index", new { sortOrder = ViewBag.SortingOpinion }, new { @class = "p-2 text-muted" })
+                        @Html.ActionLink("Science", "Index", new { sortOrder = ViewBag.SortingScience }, new { @class = "p-2 text-muted" })
+                        @Html.ActionLink("Health", "Index", new { sortOrder = ViewBag.SortingHealth }, new { @class = "p-2 text-muted" })
+                        @Html.ActionLink("Style", "Index", new { sortOrder = ViewBag.SortingStyle }, new { @class = "p-2 text-muted" })
+                        @Html.ActionLink("Travel", "Index", new { sortOrder = ViewBag.SortingTravel }, new { @class = "p-2 text-muted" })
+                    </nav>
+                </div>
+            }
+        </form>
+            <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+                <div class="row">
+                    <div class="col-md-6 px-0">
+                        <a class="btn btn-lg btn-outline-secondary feedType @ViewBag.FeedTop.FeedType" style="padding-right:10px;">@ViewBag.FeedTop.FeedType</a>
+                        <h1 class="display-4 font-italic">  @ViewBag.FeedTop.Title</h1>
+                        <br />
+                        <p class="lead my-3"> @ViewBag.FeedTop.ApplicationUser.FirstName |  @ViewBag.FeedTop.PublishedDate </p>
+
+                        <p class="lead my-3">
+                            @if (ViewBag.FeedTop.Description.Length > 400)
+                            {
+                                @ViewBag.FeedTop.Description.Substring(0, 400)
+
+                            }
+                            else
+                            {
+                                @ViewBag.FeedTop.Description
+
+                            }
+                        </p>
+                        <p class="lead mb-0"><a href="@Url.Action("Details", "RSSFeeds",new { id=@ViewBag.FeedTop.RSSFeedsId })">Continue reading...</a> </p>
+                    </div>
+                    <div class="col-md-4 px-">
+
+                        <p></p>
+                        <p class="lead my-3">
+                            <img class="topimage" src="/RSSFeeds/RetrieveImage/@ViewBag.FeedTop.RSSFeedsId" />
+                        </p>
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6">
+                <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                    <div class="card-body d-flex flex-column align-items-start">
+                        <a class="btn btn-sm btn-outline-secondary feedType @item.FeedType" style="padding-right:10px;">@Html.DisplayFor(modelItem => item.FeedType)</a>
+                        <h3 class="mb-0">
+                            <a class="text-dark" href="@Url.Action("Details", "RSSFeeds", new { id = item.RSSFeedsId })"> @Html.DisplayFor(modelItem => item.Title)</a>
+                        </h3>
+                        <div class="mb-1 text-muted">
+                            @item.ApplicationUser.FirstName |  @item.PublishedDate 
+                        </div>
+                        <p class="card-text mb-auto">
+
+                            @if (item.Description.Length > 200)
+                            {
+                                @item.Description.Substring(0, 200)
+
+                            }
+                            else
+                            {
+                                @item.Description 
+                            }
+
+
+
+
+                        </p>
+                        <a href="@Url.Action("Details", "RSSFeeds", new { id = item.RSSFeedsId }) ">Continue reading...</a>
+                    </div>
+                    <img class="buttomimage" src="/RSSFeeds/RetrieveImage/@item.RSSFeedsId" />
+                </div>
+            </div>
+        }
+    </div>
+
+    <footer class="blog-footer">
+        <a href="#">Back to top</a>
+        
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <script>
+        Holder.addTheme('thumb', {
+            bg: '#55595c',
+            fg: '#eceeef',
+            text: 'Thumbnail'
+        });
+        
+    </script>
+
+
+
+    <style>
+        .topimage {
+            /* width: 100%;*/
+            height: 250px;
+            padding-left: 100px;
+            padding-top: 50px;
+        }
+
+        .buttomimage {
+            /* width: 100%;*/
+            height: 50px;
+            padding-left: 10px;
+            padding-top: 5px;
+        }
+
+        .feedType {
+            color: #ffffff;
+            border: none;
+        }
+        
+       .Technology {
+            background-color: #FF5733;
+           
+        }
+        .Design {
+            background-color: #7D3C98;
+           
+        }
+        .Culture {
+            background-color: #3498DB;
+            
+        }
+
+        .Business {
+            background-color: #229954;
+           
+        }
+        .Politics {
+            background-color: #A93226;
+       
+        }
+        .Opinion {
+            background-color: #F4D03F;        
+        }
+        .Science {
+            background-color: #28B463;        
+        }
+        .Health {
+            background-color: #28B463;
+        }
+        .Style {
+            background-color: #5F6A6A;      
+        }
+        .Travel {
+            background-color: #C39BD3;   
+        }
+
+    </style>
+</body>
+</html>

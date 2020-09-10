@@ -1,0 +1,90 @@
+﻿@model Ghimire_RSS_Feed.Models.RSSFeeds
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+    <a class="btn btn-lg btn-outline-secondary feedType @Html.DisplayFor(model => model.FeedType)" style="padding-right:10px;">@Html.DisplayFor(model => model.FeedType)</a>
+    <br />
+    <h1 class="display-4 font-italic">  @Html.DisplayFor(model => model.Title) </h1>
+    <br />
+    <p class="lead my-3"> @Html.DisplayFor(model => model.ApplicationUser.FirstName) |  @Html.DisplayFor(model => model.PublishedDate) </p>
+    <div class="row">
+        <div class="col-md-6 px-0">
+            <p class="lead my-3"> @Html.DisplayFor(model => model.Description)</p>
+        </div>
+        <div class="col-md-4 px-">
+
+            <p></p>
+            <p class="lead my-3"> <img src="/RSSFeeds/RetrieveImage/@Model.RSSFeedsId" class="topimage" /> </p>
+            
+        </div>
+    </div>
+</div>
+
+<p>
+    <button class="btn btn-light"> @Html.ActionLink("Back to List", "Index")</button>
+  
+</p>
+<style>
+    .topimage {
+        /* width: 100%;*/
+        height: 250px;
+        padding-left: 100px;
+        padding-top: 50px;
+    }
+
+    .buttomimage {
+        /* width: 100%;*/
+        height: 50px;
+        padding-left: 10px;
+        padding-top: 5px;
+    }
+
+    .feedType {
+        color: #ffffff;
+        border: none;
+    }
+
+    .Technology {
+        background-color: #FF5733;
+    }
+
+    .Design {
+        background-color: #7D3C98;
+    }
+
+    .Culture {
+        background-color: #3498DB;
+    }
+
+    .Business {
+        background-color: #229954;
+    }
+
+    .Politics {
+        background-color: #A93226;
+    }
+
+    .Opinion {
+        background-color: #F4D03F;
+    }
+
+    .Science {
+        background-color: #28B463;
+    }
+
+    .Health {
+        background-color: #28B463;
+    }
+
+    .Style {
+        background-color: #5F6A6A;
+    }
+
+    .Travel {
+        background-color: #C39BD3;
+    }
+</style>
