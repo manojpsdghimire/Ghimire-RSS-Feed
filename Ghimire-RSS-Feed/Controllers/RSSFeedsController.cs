@@ -96,7 +96,7 @@ namespace Ghimire_RSS_Feed.Controllers
                 rSSFeeds.RSSFeedsId = Guid.NewGuid();
                 //assign ID as the user ID
                 rSSFeeds.Id = User.Identity.GetUserId();
-                rSSFeeds.PublishedDate = DateTime.UtcNow;
+                rSSFeeds.PublishedDate = DateTime.Now;
 
                 db.RSSFeeds.Add(rSSFeeds);
                 await db.SaveChangesAsync();
@@ -163,7 +163,7 @@ namespace Ghimire_RSS_Feed.Controllers
             {
                 db.Entry(rSSFeeds).State = EntityState.Modified;
                 rSSFeeds.Id = User.Identity.GetUserId();
-                rSSFeeds.PublishedDate = DateTime.UtcNow;
+                rSSFeeds.PublishedDate = DateTime.Now;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

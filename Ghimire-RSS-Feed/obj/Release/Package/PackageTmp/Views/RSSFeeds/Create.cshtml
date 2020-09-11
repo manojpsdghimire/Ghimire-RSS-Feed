@@ -1,0 +1,66 @@
+﻿@model Ghimire_RSS_Feed.Models.RSSFeeds
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2></h2>
+<br/>
+
+    @using (Html.BeginForm("Create", "RSSFeeds",FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal" style="align-content:center">
+            <h4> Create RSSFeeds</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.TextAreaFor(model => model.Title, 5, 100, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+
+                    @Html.TextAreaFor(model => model.Description, 20, 50, new { htmlmlAttributes = new { @class = "form-control col-md-12" } })
+                   
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+
+                    <input type="file" name="file" id="file" onchange="fileCheck(this);" />
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FeedType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.FeedType, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.FeedType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
